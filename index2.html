@@ -328,6 +328,15 @@
             height: auto;
         }
 
+        .about-icon img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
         @media (min-width: 768px) {
             .about-grid { grid-template-columns: 1fr 1fr; }
         }
@@ -377,6 +386,13 @@
             justify-content: center;
             color: var(--accent-color);
             font-size: 3rem;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .card-body {
@@ -433,6 +449,13 @@
             font-size: 7rem;
             color: var(--bg-color);
             text-shadow: 0 6px 20px rgba(44, 44, 44, 0.35);
+        }
+
+        .coffee-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
         }
 
         .coffee-text h2 {
@@ -629,15 +652,7 @@
                         <p>Мы верим, что хорошая книга требует правильного сопровождения: аромата свежемолотого зерна, мягкого света и возможности остаться наедине с мыслями. У нас нет громких колонок, зато есть удобные кресла, быстрый Wi-Fi и бариста, которые знают, как приготовить идеальный флэт уайт, пока вы читаете.</p>
                     </div>
                     <div class="about-icon">
-                        <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <!-- Book -->
-                            <path d="M40 60 C60 50, 80 50, 100 60 L100 180 C80 170, 60 170, 40 180 Z" fill="#a8dadc" />
-                            <path d="M100 60 C120 50, 140 50, 160 60 L160 180 C140 170, 120 170, 100 180 Z" fill="#5c3d2e" />
-                            <!-- Coffee Cup -->
-                            <path d="M170 100 L170 150 C170 161.046 178.954 170 190 170 L210 170 C221.046 170 230 161.046 230 150 L230 100 Z" fill="#2c2c2c" />
-                            <path d="M230 110 L240 110 C251.046 110 260 118.954 260 130 C260 141.046 251.046 150 240 150 L230 150" stroke="#5c3d2e" stroke-width="6" fill="none" />
-                            <path d="M180 80 C180 80, 185 60, 200 60 C215 60, 220 80, 220 80" stroke="#a8dadc" stroke-width="6" fill="none" stroke-linecap="round" />
-                        </svg>
+                        <img src="photos/dessert.jpg" alt="Фирменный вишневый пирог и десерты в «Книжном уголке»" width="850" height="566">
                     </div>
                 </div>
             </div>
@@ -674,8 +689,8 @@
 
                     <!-- Card 3 -->
                     <article class="card">
-                        <div class="card-image" role="img" aria-label="Обложка подборки Легкая проза" style="background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%); color: #faf6f0;">
-                            <i class="fa-solid fa-suitcase-rolling"></i>
+                        <div class="card-image">
+                            <img src="photos/book.jpg" alt="Книги для чтения в дорогу — легкая проза" width="850" height="566">
                         </div>
                         <div class="card-body">
                             <h3>Легкая проза в дорогу</h3>
@@ -691,8 +706,8 @@
         <section id="coffee">
             <div class="container">
                 <div class="coffee-grid">
-                    <div class="coffee-image" role="img" aria-label="Чашка ароматного спешелти-кофе и десерты">
-                        <i class="fa-solid fa-mug-hot"></i>
+                    <div class="coffee-image">
+                        <img src="photos/coffee.jpg" alt="Чашка ароматного спешелти-кофе и десерты" width="640" height="360">
                     </div>
                     <div class="coffee-text">
                         <h2>Кофе и десерты</h2>
