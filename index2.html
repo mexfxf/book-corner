@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Книжный уголок — уютное место, где пахнет кофе и типографской краской. Книжные подборки, спешелти-кофе и тихая атмосфера для работы и отдыха.">
+    <title>Книжный уголок | Кофейня и книжный магазин</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-color: #faf6f0;
+            --text-color: #2c2c2c;
+            --accent-color: #5c3d2e;
+            --accent-hover: #4a3024;
+            --soft-blue: #a8dadc;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(92, 61, 46, 0.08);
+            --shadow-md: 0 8px 24px rgba(92, 61, 46, 0.12);
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 20px);
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Focus Visible for Accessibility */
+        :focus-visible {
+            outline: 3px solid var(--soft-blue);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(92, 61, 46, 0.1);
+            height: var(--header-height);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .logo i {
+            color: var(--soft-blue);
+        }
+
+        /* Mobile Menu Checkbox Hack (hamburger is hidden on desktop) */
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-toggle-label {
+            display: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: auto;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--accent-color);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a:hover {
+            color: var(--soft-blue);
+        }
+
+        /* Mobile Navigation (<768px) */
+        @media (max-width: 767.98px) {
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .menu-toggle-label {
+                display: block;
+                width: 44px;
+                height: 44px;
+                position: relative;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .menu-toggle-label span,
+            .menu-toggle-label span::before,
+            .menu-toggle-label span::after {
+                display: block;
+                background: var(--accent-color);
+                height: 3px;
+                width: 24px;
+                border-radius: 2px;
+                position: absolute;
+                left: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .menu-toggle-label span { top: 20px; }
+            .menu-toggle-label span::before { content: ''; top: -8px; }
+            .menu-toggle-label span::after { content: ''; top: 8px; }
+
+            .menu-toggle:checked + .menu-toggle-label span { background: transparent; }
+            .menu-toggle:checked + .menu-toggle-label span::before { transform: rotate(45deg); top: 0; }
+            .menu-toggle:checked + .menu-toggle-label span::after { transform: rotate(-45deg); top: 0; }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 1.5rem 0;
+                margin-left: 0;
+                box-shadow: var(--shadow-md);
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                opacity: 0;
+                pointer-events: none;
+                gap: 1.5rem;
+            }
+
+            .menu-toggle:checked ~ .nav-menu {
+                transform: scaleY(1);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-menu a {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: calc(100vh - var(--header-height));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 20px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #f0ebe3 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-buttons { flex-direction: row; justify-content: center; }
+        }
+
+        /* About Section */
+        #about {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .about-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-icon svg {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Picks Section */
+        #picks {
+            padding: 5rem 0;
+        }
+
+        #picks h2 {
+            text-align: center;
+            font-size: 2.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .picks-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .picks-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, #8ecae6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 3rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-body p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            align-self: flex-start;
+            min-height: 44px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Coffee Section */
+        #coffee {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .coffee-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            min-height: 340px;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--accent-color) 55%, var(--accent-hover) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coffee-image i {
+            font-size: 7rem;
+            color: var(--bg-color);
+            text-shadow: 0 6px 20px rgba(44, 44, 44, 0.35);
+        }
+
+        .coffee-text h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .coffee-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .coffee-text ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .coffee-text li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .coffee-text li i {
+            color: var(--soft-blue);
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .coffee-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Map Section */
+        #map {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        #map h2 {
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .map-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .map-info {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .map-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .map-info-item i {
+            color: var(--soft-blue);
+            font-size: 1.25rem;
+            margin-top: 4px;
+        }
+
+        .map-info-item h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .map-info-item p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background-color: rgba(168, 218, 220, 0.3);
+            color: var(--accent-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--soft-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--bg-color);
+            font-size: 1.25rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--soft-blue);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-book-open"></i>
+                Книжный уголок
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Открыть меню навигации">
+            <label for="menu-toggle" class="menu-toggle-label" tabindex="0" role="button" aria-expanded="false">
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <a href="#picks">Подборки</a>
+                <a href="#map">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Уютное место, где пахнет кофе и типографской краской</h1>
+                <p>Твои следующие выходные начинаются здесь. Кофе, десерты и книги, которые не отпускают до последней страницы.</p>
+                <div class="hero-buttons">
+                    <a href="#picks" class="btn btn-primary">
+                        Смотреть книжные подборки <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#map" class="btn btn-secondary">
+                        Как нас найти <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Философия тишины и вкуса</h2>
+                        <p>«Книжный уголок» — это не просто магазин и не просто кофейня. Это тихое место для работы и отдыха без навязчивой музыки и суеты.</p>
+                        <p>Мы верим, что хорошая книга требует правильного сопровождения: аромата свежемолотого зерна, мягкого света и возможности остаться наедине с мыслями. У нас нет громких колонок, зато есть удобные кресла, быстрый Wi-Fi и бариста, которые знают, как приготовить идеальный флэт уайт, пока вы читаете.</p>
+                    </div>
+                    <div class="about-icon">
+                        <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <!-- Book -->
+                            <path d="M40 60 C60 50, 80 50, 100 60 L100 180 C80 170, 60 170, 40 180 Z" fill="#a8dadc" />
+                            <path d="M100 60 C120 50, 140 50, 160 60 L160 180 C140 170, 120 170, 100 180 Z" fill="#5c3d2e" />
+                            <!-- Coffee Cup -->
+                            <path d="M170 100 L170 150 C170 161.046 178.954 170 190 170 L210 170 C221.046 170 230 161.046 230 150 L230 100 Z" fill="#2c2c2c" />
+                            <path d="M230 110 L240 110 C251.046 110 260 118.954 260 130 C260 141.046 251.046 150 240 150 L230 150" stroke="#5c3d2e" stroke-width="6" fill="none" />
+                            <path d="M180 80 C180 80, 185 60, 200 60 C215 60, 220 80, 220 80" stroke="#a8dadc" stroke-width="6" fill="none" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Picks Section -->
+        <section id="picks">
+            <div class="container">
+                <h2>Книжные подборки</h2>
+                <div class="picks-grid">
+                    <!-- Card 1 -->
+                    <article class="card">
+                        <div class="card-image" role="img" aria-label="Обложка подборки Триллеры">
+                            <i class="fa-solid fa-cloud-rain"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Триллеры на дождливую осень</h3>
+                            <p>Захватывающие сюжеты, которые не дадут уснуть под шум дождя за окном. От классики жанра до свежих новинок.</p>
+                            <a href="#" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card">
+                        <div class="card-image" role="img" aria-label="Обложка подборки Стартапы" style="background: linear-gradient(135deg, #5c3d2e 0%, #8b5e3c 100%); color: #faf6f0;">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Стартапы и саморазвитие</h3>
+                            <p>Практические руководства и вдохновляющие истории от основателей, которые изменили правила игры.</p>
+                            <a href="#" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card">
+                        <div class="card-image" role="img" aria-label="Обложка подборки Легкая проза" style="background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%); color: #faf6f0;">
+                            <i class="fa-solid fa-suitcase-rolling"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Легкая проза в дорогу</h3>
+                            <p>Небольшие по объему, но глубокие по смыслу романы, которые идеально читаются в поезде или самолете.</p>
+                            <a href="#" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coffee Section -->
+        <section id="coffee">
+            <div class="container">
+                <div class="coffee-grid">
+                    <div class="coffee-image" role="img" aria-label="Чашка ароматного спешелти-кофе и десерты">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <div class="coffee-text">
+                        <h2>Кофе и десерты</h2>
+                        <p>Мы обжариваем зерна локальными микролотами и готовим каждый напиток с вниманием к деталям. Наша цель — чтобы вкус кофе дополнял впечатления от книги, а не перебивал их.</p>
+                        <ul>
+                            <li><i class="fa-solid fa-mug-hot"></i> Спешелти-кофе и авторские рафы</li>
+                            <li><i class="fa-solid fa-mug-saucer"></i> Густое какао на маршмеллоу</li>
+                            <li><i class="fa-solid fa-cake-candles"></i> Фирменный вишневый пирог по бабушкиному рецепту</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map">
+            <div class="container">
+                <h2>Карта и время работы</h2>
+                <div class="map-content">
+                    <div class="map-info">
+                        <div class="map-info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Адрес</h4>
+                                <p>г. Москва, ул. Покровка, д. 12, вход со двора</p>
+                            </div>
+                        </div>
+                        <div class="map-info-item">
+                            <i class="fa-regular fa-clock"></i>
+                            <div>
+                                <h4>Время работы</h4>
+                                <p>Пн-Пт: 09:00–22:00<br>Сб-Вс: 10:00–23:00</p>
+                            </div>
+                        </div>
+                        <div class="map-info-item">
+                            <i class="fa-solid fa-walking"></i>
+                            <div>
+                                <h4>Как добраться</h4>
+                                <p>От метро 5 минут пешком. Всегда рады студентам с зачеткой — скидка 10% на любой фильтр-кофе.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary" style="width: 100%;">
+                        <i class="fa-solid fa-map-location-dot"></i> Построить маршрут в Яндекс.Картах
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p class="copyright">© 2026 Книжный уголок. Все права защищены.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Наш Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" aria-label="Наш ВКонтакте"><i class="fa-brands fa-vk"></i></a>
+                <a href="#" aria-label="Наш Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
