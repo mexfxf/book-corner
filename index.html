@@ -3,252 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Книжный уголок — кофейня и книги</title>
+    <meta name="description" content="Книжный уголок — уютное место, где пахнет кофе и типографской краской. Книжные подборки, спешелти-кофе и тихая атмосфера для работы и отдыха.">
+    <title>Книжный уголок | Кофейня и книжный магазин</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        /* Сброс и базовые стили */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        :root {
+            --bg-color: #faf6f0;
+            --text-color: #2c2c2c;
+            --accent-color: #5c3d2e;
+            --accent-hover: #4a3024;
+            --soft-blue: #a8dadc;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(92, 61, 46, 0.08);
+            --shadow-md: 0 8px 24px rgba(92, 61, 46, 0.12);
+            --header-height: 70px;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        
+
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 20px);
             font-size: 16px;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #faf6f0;
-            color: #2c2c2c;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            color: #5c3d2e;
+            color: var(--accent-color);
+            line-height: 1.2;
         }
 
         a {
-            color: #5c3d2e;
             text-decoration: none;
-            transition: color 0.2s ease;
+            color: inherit;
+            transition: color 0.3s ease;
         }
 
-        a:hover {
-            color: #3a271d;
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
 
-        button {
-            font-family: inherit;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
+        /* Focus Visible for Accessibility */
+        :focus-visible {
+            outline: 3px solid var(--soft-blue);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            min-height: 48px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        button:hover {
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
             transform: translateY(-2px);
         }
 
-        button:focus-visible {
-            outline: 2px solid #a8dadc;
-            outline-offset: 2px;
-        }
-
-        /* Шапка и бургер-меню (CSS-only) */
-        .menu-checkbox {
-            display: none;
-        }
-
+        /* Header */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            background: #faf6f0;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid #e5dfd6;
-            z-index: 100;
+            z-index: 1000;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(92, 61, 46, 0.1);
+            height: var(--header-height);
+        }
+
+        .header-inner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            height: 100%;
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            color: #5c3d2e;
             font-weight: 700;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .nav-links {
-            display: none;
-            gap: 2rem;
+        .logo i {
+            color: var(--soft-blue);
         }
 
+        /* Mobile Menu Checkbox Hack (hamburger is hidden on desktop) */
         .menu-toggle {
-            display: block;
-            background: none;
-            font-size: 1.5rem;
-            color: #5c3d2e;
-        }
-
-        /* Мобильное меню (чекбокс-хак) */
-        .menu-checkbox:checked ~ .mobile-menu {
-            transform: translateY(0);
-        }
-
-        .menu-checkbox:checked + .menu-toggle .fa-bars {
             display: none;
         }
 
-        .menu-checkbox:checked + .menu-toggle .fa-xmark {
-            display: block;
+        .menu-toggle-label {
+            display: none;
         }
 
-        .mobile-menu {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background: #faf6f0;
-            padding: 2rem;
-            transform: translateY(-120%);
-            transition: transform 0.3s ease;
-            border-bottom: 1px solid #e5dfd6;
-            z-index: 99;
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: auto;
+            gap: 2.5rem;
         }
 
-        .mobile-menu a {
-            display: block;
-            padding: 1rem 0;
-            font-size: 1.1rem;
+        .nav-menu a {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--accent-color);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
         }
 
-        /* Контент */
-        main {
-            padding-top: 80px;
-            padding-bottom: 4rem;
+        .nav-menu a:hover {
+            color: var(--soft-blue);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        /* Mobile Navigation (<768px) */
+        @media (max-width: 767.98px) {
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .menu-toggle-label {
+                display: block;
+                width: 44px;
+                height: 44px;
+                position: relative;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .menu-toggle-label span,
+            .menu-toggle-label span::before,
+            .menu-toggle-label span::after {
+                display: block;
+                background: var(--accent-color);
+                height: 3px;
+                width: 24px;
+                border-radius: 2px;
+                position: absolute;
+                left: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .menu-toggle-label span { top: 20px; }
+            .menu-toggle-label span::before { content: ''; top: -8px; }
+            .menu-toggle-label span::after { content: ''; top: 8px; }
+
+            .menu-toggle:checked + .menu-toggle-label span { background: transparent; }
+            .menu-toggle:checked + .menu-toggle-label span::before { transform: rotate(45deg); top: 0; }
+            .menu-toggle:checked + .menu-toggle-label span::after { transform: rotate(-45deg); top: 0; }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 1.5rem 0;
+                margin-left: 0;
+                box-shadow: var(--shadow-md);
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                opacity: 0;
+                pointer-events: none;
+                gap: 1.5rem;
+            }
+
+            .menu-toggle:checked ~ .nav-menu {
+                transform: scaleY(1);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-menu a {
+                font-size: 1.1rem;
+            }
         }
 
-        .hero {
-            padding: 4rem 0;
+        /* Hero Section */
+        #hero {
+            min-height: calc(100vh - var(--header-height));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, #faf6f0 0%, #f0e9db 100%);
+            padding: 4rem 20px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #f0ebe3 100%);
         }
 
-        .hero h1 {
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
+            margin-bottom: 1.5rem;
         }
 
-        .hero p {
+        .hero-content p {
             font-size: 1.125rem;
+            color: #555;
+            margin-bottom: 2.5rem;
             max-width: 600px;
-            margin: 0 auto 2rem;
-            color: #4a4a4a;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .hero-actions {
+        .hero-buttons {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             align-items: center;
         }
 
-        .btn-primary {
-            background-color: #5c3d2e;
-            color: #faf6f0;
-            font-weight: 600;
+        @media (min-width: 768px) {
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-buttons { flex-direction: row; justify-content: center; }
         }
 
-        .btn-primary:hover {
-            background-color: #3a271d;
+        /* About Section */
+        #about {
+            padding: 5rem 0;
+            background-color: var(--white);
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: #5c3d2e;
-            border: 2px solid #5c3d2e;
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .btn-secondary:hover {
-            background-color: #f5efe6;
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .section {
-            padding: 4rem 0;
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
         }
 
-        .section-title {
+        .about-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-icon svg {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+        }
+
+        .about-icon img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (min-width: 768px) {
+            .about-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Picks Section */
+        #picks {
+            padding: 5rem 0;
+        }
+
+        #picks h2 {
             text-align: center;
             font-size: 2.25rem;
             margin-bottom: 3rem;
         }
 
-        /* Секция "О нас" */
-        .about {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .about-text {
-            max-width: 700px;
-        }
-
-        .about-icon {
-            font-size: 6rem;
-            color: #a8dadc;
-        }
-
-        /* Карточки подборок */
         .picks-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
-            margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .picks-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .card {
-            background: #fff;
+            background: var(--white);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
 
-        .card-cover {
+        .card-image {
+            width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #d4a373 0%, #8b5e34 100%);
+            background: linear-gradient(135deg, var(--soft-blue) 0%, #8ecae6 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #faf6f0;
-            font-size: 2rem;
+            color: var(--accent-color);
+            font-size: 3rem;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .card-body {
@@ -258,260 +402,372 @@
             flex-direction: column;
         }
 
-        .card-title {
+        .card-body h3 {
             font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: #5c3d2e;
+            margin-bottom: 0.75rem;
         }
 
-        .card-text {
-            flex-grow: 1;
-            color: #6b6b6b;
+        .card-body p {
+            font-size: 0.95rem;
+            color: #555;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
-        .card-footer {
-            margin-top: auto;
-            text-align: center;
+        .card-btn {
+            align-self: flex-start;
+            min-height: 44px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
         }
 
-        /* Кофе и десерты */
-        .coffee {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        /* Coffee Section */
+        #coffee {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
             align-items: center;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 12px;
         }
 
         .coffee-image {
-            width: 100%;
-            max-width: 400px;
-            height: 300px;
-            object-fit: cover;
             border-radius: 12px;
-            background-color: #d4a373;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            min-height: 340px;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--accent-color) 55%, var(--accent-hover) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .coffee-text h3 {
+        .coffee-image i {
+            font-size: 7rem;
+            color: var(--bg-color);
+            text-shadow: 0 6px 20px rgba(44, 44, 44, 0.35);
+        }
+
+        .coffee-image img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .coffee-text h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .coffee-text p {
+            font-size: 1.05rem;
             margin-bottom: 1rem;
         }
 
-        /* Карта */
-        .map-section {
-            text-align: center;
-        }
-
-        .address-block {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .address-block p {
-            margin-bottom: 0.5rem;
-        }
-
-        .route-btn {
-            background-color: #5c3d2e;
-            color: #faf6f0;
-        }
-
-        /* Футер */
-        footer {
-            background: #2c2c2c;
-            color: #faf6f0;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .social-links {
+        .coffee-text ul {
+            list-style: none;
             margin-top: 1.5rem;
         }
 
+        .coffee-text li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .coffee-text li i {
+            color: var(--soft-blue);
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .coffee-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Map Section */
+        #map {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        #map h2 {
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .map-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .map-info {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .map-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .map-info-item i {
+            color: var(--soft-blue);
+            font-size: 1.25rem;
+            margin-top: 4px;
+        }
+
+        .map-info-item h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .map-info-item p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background-color: rgba(168, 218, 220, 0.3);
+            color: var(--accent-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--soft-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
         .social-links a {
-            color: #faf6f0;
-            font-size: 1.5rem;
-            margin: 0 0.75rem;
-            transition: color 0.2s ease;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--bg-color);
+            font-size: 1.25rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .social-links a:hover {
-            color: #a8dadc;
+            background-color: var(--soft-blue);
+            color: var(--accent-color);
+            transform: translateY(-2px);
         }
 
-        /* Адаптив */
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
         @media (min-width: 768px) {
-            .menu-toggle {
-                display: none;
-            }
-
-            .nav-links {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: none;
-            }
-
-            .hero-actions {
-                flex-direction: row;
-                gap: 1.5rem;
-            }
-
-            .about {
-                flex-direction: row;
-                text-align: left;
-                align-items: center;
-                gap: 4rem;
-            }
-
-            .about-text {
-                max-width: 500px;
-            }
-
-            .picks-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .coffee {
+            .footer-content {
                 flex-direction: row;
                 justify-content: space-between;
-                padding: 4rem 2rem;
-            }
-
-            .coffee-image {
-                max-width: 500px;
-                height: 350px;
-            }
-
-            .coffee-text {
-                max-width: 500px;
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
 
-<input type="checkbox" id="menu-checkbox" class="menu-checkbox">
-<header>
-    <div class="logo">Книжный уголок</div>
-    <nav class="nav-links">
-        <a href="#picks">Подборки</a>
-        <a href="#map">Контакты</a>
-    </nav>
-    <label for="menu-checkbox" class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-        <i class="fas fa-xmark"></i>
-    </label>
-</header>
-
-<div class="mobile-menu">
-    <a href="#picks">Подборки</a>
-    <a href="#map">Контакты</a>
-</div>
-
-<main>
-    <section class="hero">
-        <div class="container">
-            <h1>Уютное место, где пахнет кофе и типографской краской</h1>
-            <p>Твои следующие выходные начинаются здесь. Кофе, десерты и книги, которые не отпускают до последней страницы.</p>
-            <div class="hero-actions">
-                <a href="#picks" class="btn btn-primary"><i class="fas fa-book-open"></i> Смотреть книжные подборки</a>
-                <a href="#map" class="btn btn-secondary"><i class="fas fa-map-marker-alt"></i> Как нас найти</a>
-            </div>
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-book-open"></i>
+                Книжный уголок
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Открыть меню навигации">
+            <label for="menu-toggle" class="menu-toggle-label" tabindex="0" role="button" aria-expanded="false">
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <a href="#picks">Подборки</a>
+                <a href="#map">Контакты</a>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="about-text">
-                <h2 class="section-title">Тихое место для работы и отдыха</h2>
-                <p>«Книжный уголок» — это пространство, где время замедляется. Мы принципиально не включаем навязчивую фоновую музыку. Здесь можно сосредоточиться на ноутбуке с чашкой спешелти-кофе, спрятаться от дождя с томиком классики или обсудить новинки нон-фикшна со студентами за соседним столиком. </p>
-                <p>У нас всегда есть розетки у окна и стабильный Wi-Fi. Никакого крика, только шелест страниц и звон ложечек о фарфор.</p>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Уютное место, где пахнет кофе и типографской краской</h1>
+                <p>Твои следующие выходные начинаются здесь. Кофе, десерты и книги, которые не отпускают до последней страницы.</p>
+                <div class="hero-buttons">
+                    <a href="#picks" class="btn btn-primary">
+                        Смотреть книжные подборки <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#map" class="btn btn-secondary">
+                        Как нас найти <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </div>
             </div>
-            <div class="about-icon" aria-hidden="true">
-                <i class="fas fa-mug-hot"></i>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section" id="picks">
-        <div class="container">
-            <h2 class="section-title">Книжные подборки</h2>
-            <div class="picks-grid">
-                <div class="card">
-                    <div class="card-cover">🌧️</div>
-                    <div class="card-body">
-                        <h3 class="card-title">Триллеры на дождливую осень</h3>
-                        <p class="card-text">Книги, от которых стынет кровь, пока за окном барабанит ливень. Идеально для чтения под пледом с нашим фирменным какао.</p>
-                        <div class="card-footer">
-                            <button class="btn btn-primary"><i class="fas fa-arrow-right"></i> Читать список</button>
-                        </div>
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Философия тишины и вкуса</h2>
+                        <p>«Книжный уголок» — это не просто магазин и не просто кофейня. Это тихое место для работы и отдыха без навязчивой музыки и суеты.</p>
+                        <p>Мы верим, что хорошая книга требует правильного сопровождения: аромата свежемолотого зерна, мягкого света и возможности остаться наедине с мыслями. У нас нет громких колонок, зато есть удобные кресла, быстрый Wi-Fi и бариста, которые знают, как приготовить идеальный флэт уайт, пока вы читаете.</p>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-cover">💼</div>
-                    <div class="card-body">
-                        <h3 class="card-title">Стартапы и саморазвитие</h3>
-                        <p class="card-text">Свежий взгляд на бизнес, продуктивность и поиск себя. От реальных кейсов Кремниевой долины до философии стоиков.</p>
-                        <div class="card-footer">
-                            <button class="btn btn-primary"><i class="fas fa-arrow-right"></i> Читать список</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-cover">✈️</div>
-                    <div class="card-body">
-                        <h3 class="card-title">Легкая проза в дорогу</h3>
-                        <p class="card-text">Книги, которые читаются на одном дыхании в поезде или самолете. Ироничные детективы, романтика и добрые истории.</p>
-                        <div class="card-footer">
-                            <button class="btn btn-primary"><i class="fas fa-arrow-right"></i> Читать список</button>
-                        </div>
+                    <div class="about-icon">
+                        <img src="photos/dessert.jpg" alt="Фирменный вишневый пирог и десерты в «Книжном уголке»" width="850" height="566">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section coffee">
-        <div class="container" style="display: flex; flex-direction: column; gap: 2rem; align-items: center;">
-            <img src="https://placehold.co/600x400/8b5e34/ffffff/png?text=Specialty+Coffee+%26+Cherry+Pie" alt="Чашка кофе и кусок вишневого пирога на керамической тарелке" class="coffee-image" loading="lazy">
-            <div class="coffee-text">
-                <h2 class="section-title">Кофе и десерты</h2>
-                <p>Мы сами обжариваем зерно и варим альтернативу: V60, аэропресс и кемекс. Наш бариста знает, как сделать идеальный капучино без горечи. Обязательно попробуйте наш фирменный вишневый пирог — он заканчивается каждый вечер. Для тех, кто не пьет кофе — у нас есть насыщенное какао на бельгийском шоколаде.</p>
+        <!-- Picks Section -->
+        <section id="picks">
+            <div class="container">
+                <h2>Книжные подборки</h2>
+                <div class="picks-grid">
+                    <!-- Card 1 -->
+                    <article class="card">
+                        <div class="card-image">
+                            <img src="photos/thriller.jpg" alt="Обложка подборки Триллеры на дождливую осень" width="850" height="566">
+                        </div>
+                        <div class="card-body">
+                            <h3>Триллеры на дождливую осень</h3>
+                            <p>Захватывающие сюжеты, которые не дадут уснуть под шум дождя за окном. От классики жанра до свежих новинок.</p>
+                            <a href="https://www.labirint.ru/search/%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%D1%8B/" target="_blank" rel="noopener noreferrer" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card">
+                        <div class="card-image">
+                            <img src="photos/startup.jpg" alt="Обложка подборки Стартапы и саморазвитие" width="850" height="566">
+                        </div>
+                        <div class="card-body">
+                            <h3>Стартапы и саморазвитие</h3>
+                            <p>Практические руководства и вдохновляющие истории от основателей, которые изменили правила игры.</p>
+                            <a href="https://www.labirint.ru/search/%D1%81%D1%82%D0%B0%D1%80%D1%82%D0%B0%D0%BF%D1%8B/" target="_blank" rel="noopener noreferrer" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card">
+                        <div class="card-image">
+                            <img src="photos/book.jpg" alt="Книги для чтения в дорогу — легкая проза" width="850" height="566">
+                        </div>
+                        <div class="card-body">
+                            <h3>Легкая проза в дорогу</h3>
+                            <p>Небольшие по объему, но глубокие по смыслу романы, которые идеально читаются в поезде или самолете.</p>
+                            <a href="https://www.labirint.ru/search/%D0%BB%D1%91%D0%B3%D0%BA%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B7%D0%B0/" target="_blank" rel="noopener noreferrer" class="btn btn-primary card-btn">Читать список</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coffee Section -->
+        <section id="coffee">
+            <div class="container">
+                <div class="coffee-grid">
+                    <div class="coffee-image">
+                        <img src="photos/coffee.jpg" alt="Чашка ароматного спешелти-кофе и десерты" width="640" height="360">
+                    </div>
+                    <div class="coffee-text">
+                        <h2>Кофе и десерты</h2>
+                        <p>Мы обжариваем зерна локальными микролотами и готовим каждый напиток с вниманием к деталям. Наша цель — чтобы вкус кофе дополнял впечатления от книги, а не перебивал их.</p>
+                        <ul>
+                            <li><i class="fa-solid fa-mug-hot"></i> Спешелти-кофе и авторские рафы</li>
+                            <li><i class="fa-solid fa-mug-saucer"></i> Густое какао на маршмеллоу</li>
+                            <li><i class="fa-solid fa-cake-candles"></i> Фирменный вишневый пирог по бабушкиному рецепту</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map">
+            <div class="container">
+                <h2>Карта и время работы</h2>
+                <div class="map-content">
+                    <div class="map-info">
+                        <div class="map-info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Адрес</h4>
+                                <p>г. Москва, ул. Покровка, д. 12, вход со двора</p>
+                            </div>
+                        </div>
+                        <div class="map-info-item">
+                            <i class="fa-regular fa-clock"></i>
+                            <div>
+                                <h4>Время работы</h4>
+                                <p>Пн-Пт: 09:00–22:00<br>Сб-Вс: 10:00–23:00</p>
+                            </div>
+                        </div>
+                        <div class="map-info-item">
+                            <i class="fa-solid fa-walking"></i>
+                            <div>
+                                <h4>Как добраться</h4>
+                                <p>От метро 5 минут пешком. Всегда рады студентам с зачеткой — скидка 10% на любой фильтр-кофе.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://yandex.ru/maps/213/moscow/house/ulitsa_pokrovka_12/Z04YcANkT0EPQFtvfXt0eHxgZA==/?ll=37.644647%2C55.759030&z=16" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+                        <i class="fa-solid fa-map-location-dot"></i> Построить маршрут в Яндекс.Картах
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p class="copyright">© 2026 Книжный уголок. Все права защищены.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Наш Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" aria-label="Наш ВКонтакте"><i class="fa-brands fa-vk"></i></a>
+                <a href="#" aria-label="Наш Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
-    </section>
-
-    <section class="section map-section" id="map">
-        <div class="container">
-            <h2 class="section-title">Карта и время работы</h2>
-            <div class="address-block">
-                <p><strong>Адрес:</strong> г. Москва, ул. Покровка, д. 12, вход со двора</p>
-                <p><strong>Время работы:</strong> Пн-Пт: 09:00–22:00, Сб-Вс: 10:00–23:00</p>
-                <p>От метро «Китай-город» или «Чистые пруды» — 5 минут пешком. Всегда рады студентам с зачеткой — скидка 10% на любой фильтр-кофе.</p>
-                <button class="btn route-btn"><i class="fas fa-directions"></i> Построить маршрут в Яндекс.Картах</button>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2026 Книжный уголок. Уютное чтение и спешелти-кофе.</p>
-        <div class="social-links">
-            <a href="#" aria-label="Мы во ВКонтакте"><i class="fab fa-vk"></i></a>
-            <a href="#" aria-label="Мы в Telegram"><i class="fab fa-telegram"></i></a>
-            <a href="#" aria-label="Мы в Яндекс.Картах"><i class="fas fa-map"></i></a>
-        </div>
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>
